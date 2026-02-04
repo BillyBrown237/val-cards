@@ -171,8 +171,6 @@ export default function FlowerScreen({ data, onBack }: FlowerScreenProps) {
                                         <Heart className="w-6 h-6 text-pink-300 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" />
                                     </div>
                                 </div>
-
-
                             </motion.div>
                         ))}
                     </motion.div>
