@@ -103,7 +103,7 @@ export default function LetterScreen({ data, onBack }: LetterScreenProps) {
                                         className="bg-linear-to-r from-pink-50 to-rose-50 rounded-lg p-6 border-l-4 border-pink-400"
                                     >
                                         <div className="flex items-start gap-3">
-                                            <Heart className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" fill="currentColor" />
+                                            <Heart className="w-6 h-6 text-pink-500 shrink-0 mt-1" fill="currentColor" />
                                             <p className="text-gray-700 italic leading-relaxed">
                                                 &#34;{data.loveLetter}&#34;
                                             </p>

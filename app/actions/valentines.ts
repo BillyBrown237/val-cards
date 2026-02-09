@@ -3,9 +3,9 @@
 
 import { nanoid } from 'nanoid'
 import { supabaseAdmin } from '@/lib/supabase'
-import type { Database } from '@/lib/types'
+import type {Database, ValentineInsert} from '@/lib/types'
 
-type ValentineInsert = Database['public']['Tables']['valentines']['Insert']
+
 
 export async function createValentine(formData: FormData) {
     try {
@@ -19,6 +19,12 @@ export async function createValentine(formData: FormData) {
         const photo1Caption = formData.get('photo1Caption') as string | null
         const photo2 = formData.get('photo2') as File | null
         const photo2Caption = formData.get('photo2Caption') as string | null
+
+       const flowerMsg1 = formData.get('flower_msg_1') as string | null
+       const flowerMsg2 = formData.get('flower_msg_2') as string | null
+       const flowerMsg3 = formData.get('flower_msg_3') as string | null
+       const flowerMsg4 = formData.get('flower_msg_4') as string | null
+
 
         // Validate required fields
         if (!senderName || !recipientName || !message) {
@@ -68,10 +74,10 @@ export async function createValentine(formData: FormData) {
 
         // Default flower messages
         const flowerMessages = [
-            "I think about you every daisy 🌼",
-            "My heart rose when I saw you 🌹",
-            "I love you bunches 💐",
-            "I will never leaf you 🍃"
+            "I think about you every daisy ",
+            "My heart rose when I saw you ",
+            "I love you bunches ",
+            "I will never leaf you "
         ]
 
         // Create the insert data object
@@ -86,10 +92,10 @@ export async function createValentine(formData: FormData) {
             photo1_caption: photo1Caption || null,
             photo2_url: photo2Url || null,
             photo2_caption: photo2Caption || null,
-            flower_msg_1: flowerMessages[0],
-            flower_msg_2: flowerMessages[1],
-            flower_msg_3: flowerMessages[2],
-            flower_msg_4: flowerMessages[3],
+            flower_msg_1: flowerMsg1 || flowerMessages[0],
+            flower_msg_2:flowerMsg2 ||  flowerMessages[1],
+            flower_msg_3: flowerMsg3 || flowerMessages[2],
+            flower_msg_4: flowerMsg4 || flowerMessages[3],
             stamp_type: stampType,
             created_at: new Date().toISOString(),
             view_count: 0,

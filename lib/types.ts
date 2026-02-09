@@ -96,3 +96,9 @@ export interface Database {
         }
     }
 }
+
+export type ValentineInsert = Database['public']['Tables']['valentines']['Insert']
+
+// Helper type for table operations
+export type Tables = Database['public']['Tables']
+export type ValentinesTable = Tables['valentines']

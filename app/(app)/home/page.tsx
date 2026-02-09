@@ -12,6 +12,13 @@ const STAMP_OPTIONS = [
     { id: 'cat-letter', emoji: '🐱✉️', label: 'Cat with Letter' },
 ]
 
+type FlowerField =
+    | 'flowerMsg1'
+    | 'flowerMsg2'
+    | 'flowerMsg3'
+    | 'flowerMsg4'
+
+
 export default function HomePage() {
     const router = useRouter()
     const [formData, setFormData] = useState({
@@ -20,6 +27,11 @@ export default function HomePage() {
         message: '',
         shortNote: '',
         stampType: 'cats-love',
+        // 🌸 NEW: flower messages
+        flowerMsg1: '',
+        flowerMsg2: '',
+        flowerMsg3: '',
+        flowerMsg4: '',
     })
     const [photos, setPhotos] = useState<{
         photo1?: File
@@ -70,6 +82,11 @@ export default function HomePage() {
             formDataToSend.append('message', formData.message)
             formDataToSend.append('shortNote', formData.shortNote)
             formDataToSend.append('stampType', formData.stampType)
+            formDataToSend.append('flower_msg_1', formData.flowerMsg1)
+            formDataToSend.append('flower_msg_2', formData.flowerMsg2)
+            formDataToSend.append('flower_msg_3', formData.flowerMsg3)
+            formDataToSend.append('flower_msg_4', formData.flowerMsg4)
+
 
             if (photos.photo1) {
                 formDataToSend.append('photo1', photos.photo1)
@@ -130,6 +147,10 @@ export default function HomePage() {
             message: '',
             shortNote: '',
             stampType: 'cats-love',
+            flowerMsg1: '',
+            flowerMsg2: '',
+            flowerMsg3: '',
+            flowerMsg4: '',
         })
         setPhotos({})
     }
@@ -143,6 +164,10 @@ export default function HomePage() {
             message: '',
             shortNote: '',
             stampType: 'cats-love',
+            flowerMsg1: '',
+            flowerMsg2: '',
+            flowerMsg3: '',
+            flowerMsg4: '',
         })
         setPhotos({})
         setGeneratedUrl('')
@@ -405,9 +430,46 @@ export default function HomePage() {
                                 </div>
                             </div>
                         </div>
+                        {/* Flower Messages Card */}
+                        <div className="bg-white rounded-2xl p-8 shadow-xl border border-pink-100">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="p-2 bg-pink-100 rounded-lg">
+                                    {'🌸'}
+                                </div>
+                                <h2 className="text-2xl font-bold text-gray-800">
+                                    Flower Notes
+                                </h2>
+                            </div>
+
+                            <div className="grid md:grid-cols-2 gap-6">
+                                {([
+                                    { name: 'flowerMsg1', placeholder: 'My heart rose when I saw you ' },
+                                    { name: 'flowerMsg2', placeholder: 'I think about you every daisy ' },
+                                    { name: 'flowerMsg3', placeholder: 'I love you bunches ' },
+                                    { name: 'flowerMsg4', placeholder: 'I will never leaf you ' },
+                                ]as { name: FlowerField; placeholder: string }[]).map((field, i) => (
+                                    <div key={field.name}>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Flower Message {i + 1}
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name={field.name}
+                                            value={formData[field.name]}
+                                            onChange={handleInputChange}
+                                            placeholder={field.placeholder}
+                                            required
+                                            className={`w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent
+                                                transition-all bg-gray-50`}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
 
                         {/* Stamp Selection Card */}
-                        <div className="bg-white rounded-2xl p-8 shadow-xl border border-pink-100">
+                        <div className="hidden bg-white rounded-2xl p-8 shadow-xl border border-pink-100">
                             <div className="flex items-center gap-3 mb-8">
                                 <div className="p-2 bg-pink-100 rounded-lg">
                                     <Sparkles className="w-5 h-5 text-pink-600" />
@@ -415,7 +477,7 @@ export default function HomePage() {
                                 <h2 className="text-2xl font-bold text-gray-800">Choose Your Stamp</h2>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div  className="appearance-none grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 {STAMP_OPTIONS.map((stamp) => (
                                     <label
                                         key={stamp.id}
